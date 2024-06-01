@@ -94,7 +94,65 @@
             <img src="/dextoolLogo.png" alt="Dextools Logo" style="width: 50px;">
         </a>		
     </div>
-    <button id="mint-button" onclick="location.href='/token/0x2b9712190ce9570c1ca860d55b1623bd88bf96ff'" target="_blank">MINT $KONK</button>
+    <button id="mint-button" onclick="location.href='https://launcher.tornadoblast.bot/token/0x2b9712190ce9570c1ca860d55b1623bd88bf96ff'" target="_blank">MINT $KONK</button>
     <audio id="background-music" src="/Kiyosonk.mp3"></audio>
     <img id="mute-icon" src="/mute.png" alt="Mute Icon" width="50px">
-    <div id="ca-text">CA: 0x2b9712190Ce9570C1CA860
+    <div id="ca-text">CA: 0x2b9712190Ce9570C1CA860D55B1623Bd88BF96fF</div>
+    <script>
+        const audio = document.getElementById('background-music');
+        const muteIcon = document.getElementById('mute-icon');
+        let isMuted = false;
+
+        muteIcon.addEventListener('click', () => {
+            if (isMuted) {
+                audio.muted = false;
+                muteIcon.src = '/mute.png'; // Path to your unmute icon
+            } else {
+                audio.muted = true;
+                muteIcon.src = '/unmute.png'; // Path to your mute icon
+            }
+            isMuted = !isMuted;
+        });
+
+        // Function to play music
+        function playMusic() {
+            audio.play().then(() => {
+                console.log('Music started playing.');
+                // Remove event listener to prevent multiple plays
+                document.body.removeEventListener('mousemove', playMusic);
+            }).catch(error => {
+                console.log('Error occurred while playing music:', error);
+            });
+        }
+
+        // Function to add and remove vibration class
+        function toggleVibration() {
+            const mintButton = document.getElementById('mint-button');
+            mintButton.classList.toggle('vibrate');
+            if (!isMuted) {
+                playMusic();
+            }
+        }
+
+        // Initial call to start vibration after 5 seconds
+        setTimeout(() => {
+            toggleVibration();
+            // Set interval to stop vibration after 3 seconds
+            setTimeout(() => {
+                toggleVibration();
+            }, 1000);
+        }, 3000);
+
+        // Set interval to repeat vibration every 5 minutes
+        setInterval(() => {
+            setTimeout(() => {
+                toggleVibration();
+                // Set interval to stop vibration after 3 seconds
+                setTimeout(() => {
+                    toggleVibration();
+                }, 1000);
+            }, 3000);
+        }, 5000);
+    </script>
+</body>
+</html>
