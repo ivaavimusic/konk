@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KONK</title>
+    <title>Launching Soon</title>
+    <link rel="icon" href="D:/Development/KONK/favicon.png" type="image/png">
     <style>
         body {
             background-color: #FEA304;
@@ -13,16 +14,16 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
         @font-face {
             font-family: 'Fredoka';
             src: url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap');
         }
         #top-image {
-            width: 100px;
+            width: 350px;
             margin-top: 20px;
         }
         #center-image {
@@ -30,19 +31,128 @@
             height: auto;
             margin: 20px 0;
             transition: transform 0.3s;
-        } 
+        }
         #center-image:hover {
             transform: scale(1.1);
         }
         h1 {
+            font-family: 'VT323', monospace; /* Using VT323 font */
             font-size: 2em;
+            margin: 20px 0; /* Reduced margins */
+            color: white; /* White text color */
+        }
+        #ca-text {
+            margin-top: 20px;
             color: white;
+        }
+        .social-icons {
+            margin-top: 20px;
+        }
+        .social-icons img {
+            width: 50px; /* Adjust the size as needed */
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #mint-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #fff;
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        .vibrate {
+            animation: vibrate 0.1s linear infinite;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            100% { transform: translateX(-2px); }
+        }
+        #mute-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <img id="top-image" src="https://cf-ipfs.com/ipfs/bafkreic5kmpezijmnpj2cpajie7xhsjrkj7zvlnsu3cpnp62w3niddjj3m" alt="Top Image">
-    <img id="center-image" src="https://cf-ipfs.com/ipfs/bafkreiborh3elpkbiph2ab7zxa6zjs6wyeb6vr7yfgbgqoi5334rs4gkzi" alt="Center Image">
-    <h1>Website Launching Soon</h1>
+    <img id="top-image" src="KiyosonkLogo.png" alt="Top Image">
+    <img id="center-image" src="KonkFace.png" alt="Center Image" onmouseover="playMusic()">
+    <h1>Website Launching Soon</h1> <!-- Updated font and style here -->
+    <div class="social-icons">
+        <a href="https://x.com/KIYOSONK" target="_blank">
+            <img src="xLogo.png" alt="X Logo">
+        </a>
+        <a href="https://t.me/kiyosonk" target="_blank">
+            <img src="TelegramLogo.png" alt="Telegram Logo">
+        </a>
+        <a href="https://www.dextools.io/app/en/blast/pair-explorer/0x07C24BF49FAC8aE920e4c5f9a1d9Ef8Cf8C83ec6" target="_blank">
+            <img src="dextoolLogo.png" alt="Dextools Logo" style="width: 50px;">
+        </a>		
+    </div>
+    <button id="mint-button" onclick="location.href='https://launcher.tornadoblast.bot/token/0x2b9712190ce9570c1ca860d55b1623bd88bf96ff'" target="_blank">MINT $KONK</button>
+    <audio id="background-music" src=Kiyosonk.mp3"></audio>
+    <img id="mute-icon" src="mute.png" alt="Mute Icon" width="50px">
+    <div id="ca-text">CA: 0x2b9712190Ce9570C1CA860D55B1623Bd88BF96fF</div>
+    <script>
+        const audio = document.getElementById('background-music');
+        const muteIcon = document.getElementById('mute-icon');
+        let isMuted = false;
+
+        muteIcon.addEventListener('click', () => {
+            if (isMuted) {
+                audio.muted = false;
+                muteIcon.src = 'mute.png'; // Path to your unmute icon
+            } else {
+                audio.muted = true;
+                muteIcon.src = 'unmute.png'; // Path to your mute icon
+            }
+            isMuted = !isMuted;
+        });
+
+        // Function to play music
+        function playMusic() {
+            audio.play().then(() => {
+                console.log('Music started playing.');
+                // Remove event listener to prevent multiple plays
+                document.body.removeEventListener('mousemove', playMusic);
+            }).catch(error => {
+                console.log('Error occurred while playing music:', error);
+            });
+        }
+
+        // Function to add and remove vibration class
+        function toggleVibration() {
+            const mintButton = document.getElementById('mint-button');
+            mintButton.classList.toggle('vibrate');
+            if (!isMuted) {
+                playMusic();
+            }
+        }
+
+        // Initial call to start vibration after 5 seconds
+        setTimeout(() => {
+            toggleVibration();
+            // Set interval to stop vibration after 3 seconds
+            setTimeout(() => {
+                toggleVibration();
+            }, 1000);
+        }, 3000);
+
+        // Set interval to repeat vibration every 5 minutes
+        setInterval(() => {
+            setTimeout(() => {
+                toggleVibration();
+                // Set interval to stop vibration after 3 seconds
+                setTimeout(() => {
+                    toggleVibration();
+                }, 1000);
+            }, 3000);
+        }, 5000);
+    </script>
 </body>
 </html>
