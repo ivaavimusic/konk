@@ -4,158 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>$KONK ON BLAST</title>
-    <link rel="icon" href="/favicon.png" type="image/png">
-    <style>
-        body {
-            background-color: #FEA304;
-            font-family: 'Fredoka', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        @font-face {
-            font-family: 'Fredoka';
-            src: url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap');
-        }
-        #top-image {
-            width: 350px;
-            margin-top: 20px;
-        }
-        #center-image {
-            width: 200px; /* Adjust the size as needed */
-            height: auto;
-            margin: 20px 0;
-            transition: transform 0.3s;
-        }
-        #center-image:hover {
-            transform: scale(1.1);
-        }
-        h1 {
-            font-family: 'VT323', monospace; /* Using VT323 font */
-            font-size: 2em;
-            margin: 20px 0; /* Reduced margins */
-            color: white; /* White text color */
-        }
-        #ca-text {
-            margin-top: 20px;
-            color: white;
-        }
-        .social-icons {
-            margin-top: 20px;
-        }
-        .social-icons img {
-            width: 50px; /* Adjust the size as needed */
-            margin: 0 10px;
-            cursor: pointer;
-        }
-        #mint-button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #fff;
-            border: none;
-            border-radius: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-        .vibrate {
-            animation: vibrate 0.1s linear infinite;
-        }
-        @keyframes vibrate {
-            0% { transform: translateX(-2px); }
-            50% { transform: translateX(2px); }
-            100% { transform: translateX(-2px); }
-        }
-        #mute-icon {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="icon" href="/favicon.webp" type="image/webp">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <img id="top-image" src="/KiyosonkLogo.png" alt="Top Image">
-    <img id="center-image" src="https://cf-ipfs.com/ipfs/bafkreiborh3elpkbiph2ab7zxa6zjs6wyeb6vr7yfgbgqoi5334rs4gkzi" alt="Center Image" onmouseover="playMusic()">
-   <!--<h1>Website Launching Soon</h1>  Updated font and style here -->
+    <!-- Connect Wallet Button -->
+    <button id="connect-wallet-button">Connect Wallet</button>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
+            <p>Are you sure you want to logout?</p>
+            <button id="logout-button">Logout</button>
+        </div>
+    </div>
+
+    <img id="top-image" src="/KiyosonkLogo.webp" alt="Top Image" loading="lazy">
+    <img id="center-image" src="/KonkFace.webp" alt="Center Image" loading="lazy">
     <div class="social-icons">
+        <a href="https://run.kiyosonk.xyz" target="_blank">
+            <img src="/tornado.webp" alt="Tornado Logo">
+        </a>
         <a href="https://x.com/KIYOSONK" target="_blank">
-            <img src="/xLogo.png" alt="X Logo">
+            <img src="/xLogo.webp" alt="X Logo">
         </a>
         <a href="https://t.me/kiyosonk" target="_blank">
-            <img src="/TelegramLogo.png" alt="Telegram Logo">
+            <img src="/TelegramLogo.webp" alt="Telegram Logo">
         </a>
         <a href="https://www.dextools.io/app/en/blast/pair-explorer/0x07C24BF49FAC8aE920e4c5f9a1d9Ef8Cf8C83ec6" target="_blank">
-            <img src="/dextoolLogo.png" alt="Dextools Logo" style="width: 50px;">
+            <img src="/dextoolLogo.webp" alt="Dextools Logo">
         </a>
         <a href="https://run.kiyosonk.xyz" target="_blank">
-            <img src="/KONKRUN.gif" alt="Dextools Logo" style="width: 50px;">
-        </a>		
+            <img src="/KONKRUN.gif" alt="Konk Run">
+        </a>
     </div>
-    <button id="mint-button" onclick="location.href='https://launcher.tornadoblast.bot/token/0x2b9712190ce9570c1ca860d55b1623bd88bf96ff'" target="_blank">MINT $KONK</button>
+    <button id="mint-button">MINT $KONK</button>
+    
+    <!-- Buy $KONK Modal -->
+    <div id="buy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Buy $KONK</h2>
+            </div>
+            <div class="modal-body">
+                <div class="buy-section">
+                    <label for="eth-input">Amount of ETH:</label>
+                    <input type="number" id="eth-input" class="eth-input" min="0" step="0.001" placeholder="0.001">
+                </div>
+                <div class="eth-buttons">
+                    <button class="eth-button">0.001</button>
+                    <button class="eth-button">0.01</button>
+                    <button class="eth-button">0.1</button>
+                </div>
+                <button class="buy-konk-button">BUY $KONK & GET KONKED</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Please connect your wallet to proceed.</p>
+        </div>
+    </div>
+
+    <!-- Loader Modal -->
+    <div id="loader-modal" class="modal">
+        <div class="modal-content">
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+<div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+        <span id="confirmation-modal-close" class="close">&times;</span>
+        <h2>Transaction Successful! You Got KONKED!</h2>
+        <p>Tx: <a class="tx-hash-link" target="_blank" rel="noopener noreferrer"></a></p>
+    </div>
+</div>
+
+
+    <!-- Copy Address Button -->
+    <div id="copy-address-container">
+        <button id="copy-address-button">CA: 0x2b9712190ce9570c1ca860d55b1623bd88bf96ff</button>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; pointer-events: none;"></canvas>
+
     <audio id="background-music" src="/Kiyosonk.mp3"></audio>
-    <img id="mute-icon" src="/mute.png" alt="Mute Icon" width="50px">
-    <div id="ca-text">CA: 0x2b9712190Ce9570C1CA860D55B1623Bd88BF96fF</div>
-    <script>
-        const audio = document.getElementById('background-music');
-        const muteIcon = document.getElementById('mute-icon');
-        let isMuted = false;
+    <img id="mute-icon" src="/mute.webp" alt="Mute Icon">
 
-        muteIcon.addEventListener('click', () => {
-            if (isMuted) {
-                audio.muted = false;
-                muteIcon.src = '/mute.png'; // Path to your unmute icon
-            } else {
-                audio.muted = true;
-                muteIcon.src = '/unmute.png'; // Path to your mute icon
-            }
-            isMuted = !isMuted;
-        });
-
-        // Function to play music
-        function playMusic() {
-            audio.play().then(() => {
-                console.log('Music started playing.');
-                // Remove event listener to prevent multiple plays
-                document.body.removeEventListener('mousemove', playMusic);
-            }).catch(error => {
-                console.log('Error occurred while playing music:', error);
-            });
-        }
-
-        // Function to add and remove vibration class
-        function toggleVibration() {
-            const mintButton = document.getElementById('mint-button');
-            mintButton.classList.toggle('vibrate');
-            if (!isMuted) {
-                playMusic();
-            }
-        }
-
-        // Initial call to start vibration after 5 seconds
-        setTimeout(() => {
-            toggleVibration();
-            // Set interval to stop vibration after 3 seconds
-            setTimeout(() => {
-                toggleVibration();
-            }, 1000);
-        }, 3000);
-
-        // Set interval to repeat vibration every 5 minutes
-        setInterval(() => {
-            setTimeout(() => {
-                toggleVibration();
-                // Set interval to stop vibration after 3 seconds
-                setTimeout(() => {
-                    toggleVibration();
-                }, 1000);
-            }, 3000);
-        }, 5000);
-    </script>
+    <!-- Your custom script -->
+    <script src="scripts.js" defer></script>
 </body>
 </html>

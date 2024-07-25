@@ -1,0 +1,371 @@
+body {
+    background-color: #FEA304;
+    font-family: 'Fredoka', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+@font-face {
+    font-family: 'Fredoka';
+    src: url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap');
+}
+#top-image {
+    width: 350px;
+    margin-top: 20px;
+}
+#center-image {
+    width: 200px; /* Adjust the size as needed */
+    height: auto;
+    margin: 20px 0;
+    transition: transform 0.3s;
+    padding: 2%;
+}
+#center-image:hover {
+    transform: scale(1.1);
+}
+h1 {
+    font-family: 'VT323', monospace; /* Using VT323 font */
+    font-size: 2em;
+    margin: 20px 0; /* Reduced margins */
+    color: white; /* White text color */
+}
+#ca-text {
+    margin-top: 20px;
+    color: white;
+}
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.social-icons a {
+    margin: 0 10px;
+}
+.social-icons img {
+    width: 50px; /* Adjust the size as needed */
+    cursor: pointer;
+}
+#mint-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #fff;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    font-size: 1.2em;
+    cursor: pointer;
+}
+.vibrate {
+    animation: vibrate 0.1s linear infinite;
+}
+@keyframes vibrate {
+    0% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    100% { transform: translateX(-2px); }
+}
+#mute-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+#connect-wallet-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+#connect-wallet-button.connected {
+    background-color: #333;
+    color: #fff;
+}
+#connect-wallet-button.connected::before {
+    content: "Connected: ";
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#logout-button {
+    background-color: #f44336; /* Red */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+#logout-button:hover {
+    background-color: #e53935; /* Darker red */
+}
+#buy-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+#buy-modal .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+}
+#buy-modal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+#buy-modal .close:hover,
+#buy-modal .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#buy-modal .modal-header {
+    margin-bottom: 20px;
+}
+#buy-modal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.buy-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.eth-input {
+    margin: 0 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px;
+    text-align: center;
+}
+.eth-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.eth-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.eth-button:hover {
+    background-color: #e53935;
+}
+.buy-konk-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    cursor: pointer;
+}
+.buy-konk-button:hover {
+    background-color: #333;
+}
+#error-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+#error-modal .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+}
+#error-modal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+#error-modal .close:hover,
+#error-modal .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#copy-address-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#copy-address-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#copy-message {
+    display: inline-block;
+    margin-left: 10px;
+    color: green;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Loader modal styles */
+#loader-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+#loader-modal .modal-content {
+    background-color: transparent;
+    margin: 5% auto; /* Centered */
+    padding: 20px;
+    border: none;
+    width: 100px; /* Full width */
+    max-width: 100px; /* Maximum width */
+    text-align: center;
+}
+
+/* Loader styles */
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #db9834; /* Blue */
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    animation: spin 1s linear infinite;
+}
+
+/* Animation for the loader */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modal styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px;
+    text-align: center;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tx-hash-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.tx-hash-link:hover {
+    text-decoration: underline;
+}
