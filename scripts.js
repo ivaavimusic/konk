@@ -205,7 +205,7 @@ async function buyKonk() {
 
 function showConfirmationModal(txHash) {
     const confirmationModal = document.getElementById('confirmation-modal');
-    const txLink = `https://blastscan.org/tx/${txHash}`;
+    const txLink = `https://blastscan.io/tx/${txHash}`;
     confirmationModal.querySelector('.tx-hash-link').href = txLink;
     confirmationModal.querySelector('.tx-hash-link').textContent = txHash;
     confirmationModal.style.display = 'block';

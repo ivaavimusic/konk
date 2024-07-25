@@ -369,3 +369,32 @@ h1 {
 .tx-hash-link:hover {
     text-decoration: underline;
 }
+
+/* Warning text style */
+.warn {
+    background-color: #fff3cd; /* Light yellow background */
+    color: #856404; /* Dark yellow text */
+    border: 1px solid #ffeeba; /* Light yellow border */
+    padding: 0.5em; /* Padding around the text */
+    border-radius: 4px; /* Rounded corners */
+    font-weight: bold; /* Bold text */
+    display: inline; /* Make sure it fits around the text */
+    font-size: 0.8em; /* Adjust the text size (default is 1em) */
+}
+
+/* Optional: Add a pulse animation for extra emphasis */
+@keyframes pulse {
+    0% {
+        background-color: #fff3cd;
+    }
+    50% {
+        background-color: #fff5e8;
+    }
+    100% {
+        background-color: #fff3cd;
+    }
+}
+
+.warn.pulse {
+    animation: pulse 2s infinite;
+}
