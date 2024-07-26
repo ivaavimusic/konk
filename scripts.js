@@ -24,6 +24,18 @@ let currentAccount = '';
 // Ensure ethers library is loaded
 console.log('Ethers library:', window.ethers); // Check if ethers is available
 
+const blastNetwork = {
+    chainId: '0x13E31', // Hexadecimal for 79337
+    rpcUrls: ['https://rpc.blast.io'],
+    chainName: 'Blast Mainnet',
+    nativeCurrency: {
+        name: 'BLAST',
+        symbol: 'BLAST',
+        decimals: 18
+    },
+    blockExplorerUrls: ['https://blastscan.io']
+};
+
 muteIcon.addEventListener('click', () => {
     if (!hasPlayed) {
         // Start playing the audio when the user clicks to unmute for the first time
@@ -80,6 +92,36 @@ setInterval(() => {
         }, 1000);
     }, 3000);
 }, 300000);
+
+async function switchToBlastNetwork() {
+    if (window.ethereum) {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: blastNetwork.chainId }]
+            });
+            console.log('Switched to Blast Network');
+        } catch (switchError) {
+            if (switchError.code === 4902) {
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [blastNetwork]
+                    });
+                    console.log('Blast Network added and switched');
+                } catch (addError) {
+                    console.error('Failed to add the Blast Network:', addError);
+                    alert('Failed to add the Blast Network');
+                }
+            } else {
+                console.error('Failed to switch to Blast Network:', switchError);
+                alert('Failed to switch to Blast Network');
+            }
+        }
+    } else {
+        alert('MetaMask is not installed. Please install it to switch networks.');
+    }
+}
 
 async function connectWallet() {
     if (!isConnected) {
@@ -146,15 +188,24 @@ async function buyKonk() {
         showLoader();
 
         try {
-            // Ensure ethers library is accessible
-            if (!window.ethers) {
-                console.error('Ethers library is not available.');
-                hideLoader();
-                return;
-            }
-
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
+
+            // Check current network
+            const network = await provider.getNetwork();
+            console.log('Current network:', network);
+
+            if (network.chainId !== parseInt(blastNetwork.chainId, 16)) {
+                // Attempt to switch to the Blast network
+                await switchToBlastNetwork();
+                // Re-check the network after attempting the switch
+                const newNetwork = await provider.getNetwork();
+                if (newNetwork.chainId !== parseInt(blastNetwork.chainId, 16)) {
+                    alert('Failed to switch to Blast Network');
+                    hideLoader();
+                    return;
+                }
+            }
 
             const contractAddress = '0x66881D937c1828B050Bf234a5f6Ad8d17AbC4021'; // Contract address
             const amountOutMin = ethers.utils.parseUnits('0.0001', 'ether').toHexString(); // Minimum amount out
@@ -198,7 +249,7 @@ async function buyKonk() {
             hideLoader();
         }
     } else {
-        console.error('Ethereum object not found, or wallet not connected, or no amount specified');
+        console.error('ETH amount is not valid or wallet is not connected');
     }
     buyModal.style.display = 'none';
 }
@@ -214,7 +265,6 @@ function showConfirmationModal(txHash) {
 document.getElementById('confirmation-modal-close').addEventListener('click', () => {
     document.getElementById('confirmation-modal').style.display = 'none';
 });
-
 
 buyKonkButton.addEventListener('click', buyKonk);
 
