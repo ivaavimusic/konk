@@ -25,7 +25,7 @@ let currentAccount = '';
 console.log('Ethers library:', window.ethers); // Check if ethers is available
 
 const blastNetwork = {
-    chainId: '0x13E31', // Hexadecimal for 79337
+    chainId: '0x13E31', //0x13E31 is Hexadecimal for 81457 Blast ChainID
     rpcUrls: ['https://rpc.blast.io'],
     chainName: 'Blast Mainnet',
     nativeCurrency: {
@@ -127,27 +127,73 @@ async function connectWallet() {
     if (!isConnected) {
         if (window.ethereum) {
             try {
+                // Request accounts to be connected
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                currentAccount = accounts[0];
-                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
-                // Set the text content and class only once
-                connectWalletButton.textContent = `${shortAddress}`;
-                connectWalletButton.classList.add('connected');
-                isConnected = true;
-                console.log('Wallet connected:', shortAddress);
+                
+                if (accounts.length > 0) {
+                    currentAccount = accounts[0];
+                    const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                    // Set the text content and class only once
+                    connectWalletButton.textContent = `${shortAddress}`;
+                    connectWalletButton.classList.add('connected');
+                    isConnected = true;
+                    console.log('Wallet connected:', shortAddress);
+                } else {
+                    alert('No account found. Please allow MetaMask access.');
+                }
             } catch (error) {
                 console.error('Failed to connect wallet:', error);
                 connectWalletButton.textContent = 'Connect Wallet';
                 connectWalletButton.classList.remove('connected');
             }
         } else {
-            alert('Please install MetaMask!');
+            // For mobile devices, attempt to connect MetaMask
+            if (isMobileDevice()) {
+                // MetaMask deep link
+                const dappUrl = encodeURIComponent(window.location.href); // Encode the URL
+                const metamaskDeepLink = `metamask://dapp/${dappUrl}`;
+                // Attempt to open the MetaMask app
+                window.location.href = metamaskDeepLink;
+
+                // Fallback for users who don't have MetaMask installed
+                setTimeout(async () => {
+                    if (window.location.href === metamaskDeepLink) {
+                        alert('Please install MetaMask!');
+                    } else {
+                        try {
+                            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                            if (accounts.length > 0) {
+                                currentAccount = accounts[0];
+                                const shortAddress = `${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+                                connectWalletButton.textContent = `${shortAddress}`;
+                                connectWalletButton.classList.add('connected');
+                                isConnected = true;
+                                console.log('Wallet connected:', shortAddress);
+                            } else {
+                                alert('No account found. Please allow MetaMask access.');
+                            }
+                        } catch (error) {
+                            console.error('Failed to connect wallet:', error);
+                        }
+                    }
+                }, 1000);
+            } else {
+                alert('Please install MetaMask!');
+            }
         }
     } else {
         // Show the logout modal if already connected
         logoutModal.style.display = 'block';
     }
 }
+
+// Utility function to detect if the user is on a mobile device
+function isMobileDevice() {
+    return /android|iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
+}
+
+connectWalletButton.addEventListener('click', connectWallet);
+
 
 function logout() {
     currentAccount = '';
