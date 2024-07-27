@@ -9,6 +9,17 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+    user-select: none; /* Prevents text selection */
+    -webkit-user-drag: none;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Ensures it's behind other elements */
 }
 
 @font-face {
@@ -24,11 +35,11 @@ body {
 
 #center-image {
     width: 80%;
-    max-width: 200px;
+    max-width: 230px;
     height: auto;
     margin: 20px 0;
     transition: transform 0.3s;
-    padding: 2%;
+    padding: 1%;
 }
 
 #center-image:hover {

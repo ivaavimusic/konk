@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+    <canvas id="c"></canvas>
     <!-- Connect Wallet Button -->
     <button id="connect-wallet-button">Connect Wallet</button>
 
@@ -22,8 +23,8 @@
         </div>
     </div>
 
-    <img id="top-image" src="/KiyosonkLogo.webp" alt="Top Image" loading="lazy">
-    <img id="center-image" src="/KonkFace.webp" alt="Center Image" loading="lazy">
+    <img id="top-image" src="/KiyosonkLogo.webp" alt="Top Image">
+    <img id="center-image" src="/KonkFace.webp" alt="Center Image">
     <div class="social-icons">
         <a href="https://run.kiyosonk.xyz" target="_blank">
             <img src="/tornado.webp" alt="Tornado Logo">
@@ -102,6 +103,7 @@
     <audio id="background-music" src="/Kiyosonk.mp3"></audio>
     <img id="mute-icon" src="/mute.webp" alt="Mute Icon">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <!-- Your custom script -->
     <script src="scripts.js" defer></script>
 </body>
