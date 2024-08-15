@@ -1,4 +1,4 @@
-# konk
+# How to use the memecoin website template:
 Use the website template for your memecoin launch and Keep Konking!
 -> Buy Functionality embedded directly in the website!
 -> Things needs to be replaced:
@@ -12,16 +12,5 @@ Use the website template for your memecoin launch and Keep Konking!
 
 Join our Telegram Group for any support: https://t.me/kiyosonk
 #keepkoning #konkkonk #konkersgonnakonk
-
-
-$$\   $$\ $$$$$$$$\ $$$$$$$$\ $$$$$$$\        $$\   $$\  $$$$$$\  $$\   $$\ $$\   $$\ $$$$$$\ $$\   $$\  $$$$$$\  
-$$ | $$  |$$  _____|$$  _____|$$  __$$\       $$ | $$  |$$  __$$\ $$$\  $$ |$$ | $$  |\_$$  _|$$$\  $$ |$$  __$$\ 
-$$ |$$  / $$ |      $$ |      $$ |  $$ |      $$ |$$  / $$ /  $$ |$$$$\ $$ |$$ |$$  /   $$ |  $$$$\ $$ |$$ /  \__|
-$$$$$  /  $$$$$\    $$$$$\    $$$$$$$  |      $$$$$  /  $$ |  $$ |$$ $$\$$ |$$$$$  /    $$ |  $$ $$\$$ |$$ |$$$$\ 
-$$  $$<   $$  __|   $$  __|   $$  ____/       $$  $$<   $$ |  $$ |$$ \$$$$ |$$  $$<     $$ |  $$ \$$$$ |$$ |\_$$ |
-$$ |\$$\  $$ |      $$ |      $$ |            $$ |\$$\  $$ |  $$ |$$ |\$$$ |$$ |\$$\    $$ |  $$ |\$$$ |$$ |  $$ |
-$$ | \$$\ $$$$$$$$\ $$$$$$$$\ $$ |            $$ | \$$\  $$$$$$  |$$ | \$$ |$$ | \$$\ $$$$$$\ $$ | \$$ |\$$$$$$  |
-\__|  \__|\________|\________|\__|            \__|  \__| \______/ \__|  \__|\__|  \__|\______|\__|  \__| \______/ 
-                                                                                                                  
                                                                                                                   
                                                                                                                   
