@@ -1,5 +1,5 @@
-How to Use the Memecoin Website Template
-Launch your memecoin with style using this website template. Keep Konking!
+##How to Use the Memecoin Website Template
+#Launch your memecoin with style using this website template. Keep Konking!
 
 Features:
 Buy Functionality: Embedded directly into the website for seamless token purchases!
