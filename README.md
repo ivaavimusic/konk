@@ -22,5 +22,4 @@ Get yourself some $KONK as a greeting from our website: https://www.kiyosonk.xyz
 
 Join our Telegram Group for support: https://t.me/kiyosonk
 
-#keepkoning #konkkonk #konkersgonnakonk
-_
+#keepkoning #konk
