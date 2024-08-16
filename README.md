@@ -18,7 +18,7 @@ Token Contract Address: Replace $KONK CA with your token's contract address in s
 **Important:** Don’t forget to replace KONK's contract address with your own in script.js, or your users will end up buying $KONK and sending it to the moon!
 
 
-_Get yourself some $KONK as a greeting from our website: https://www.kiyosonk.xyz!
+Get yourself some $KONK as a greeting from our website: https://www.kiyosonk.xyz!
 
 Join our Telegram Group for support: https://t.me/kiyosonk
 
