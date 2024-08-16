@@ -1,7 +1,8 @@
 **#Launch your memecoin website in seconds using Kiyosonk's website template. Keep Konking!**
 
-**Features:**
-**Buy Functionality:** Embedded directly into the website for seamless token purchases!
+**Buy Functionality Included:** Embedded directly into the website for seamless token purchases!
+(Buy Functionality is explicit to tornado.fun launcher)
+
 **What You Need to Replace:**
 Title Image: Update in index.html.
 Center Logo: Replace in index.html.
