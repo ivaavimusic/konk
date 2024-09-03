@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,600|Tulpen+One&display=swap');
+
+:root {
+    --body-bg: #ffb62e;
+    --page-bg: #f7f6f5;
+    --dark-text: #2A2935;
+    --baseline: 12px;
+    --book-title: 'Tulpen One', sans-serif;
+    --title: 'Cormorant Garamond', serif;
+    --body: 'Cormorant Garamond', serif;
+    --base-size: calc(var(--baseline) * 1.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--body-bg);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+svg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+.cover {
+    width: calc(var(--baseline) * 60);
+    height: calc(var(--baseline) * 42.2);
+    box-shadow: 0 0 100px rgba(0, 0, 0, .3);
+    position: relative;
+    z-index: 1;
+}
+
+.book {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    perspective: 900px;
+    position: relative;
+}
+
+.book__page {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background-color: var(--page-bg);
+    transform-origin: left center;
+    transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.book__page--1 {
+    left: 0;
+    z-index: 1;
+}
+
+.book__page--1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book__page--2 {
+    right: 0;
+    z-index: 2;
+    transform-style: preserve-3d;
+}
+
+.book__page--4 {
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.book__page-front,
+.book__page-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--page-bg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.book__page-back {
+    transform: rotateY(180deg);
+}
+
+.page__content {
+    padding: var(--baseline);
+    height: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.page__content-book-title {
+    font-family: var(--book-title);
+    font-size: calc(var(--base-size) * 3);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--dark-text);
+    margin-top: calc(var(--baseline) * 0.1);
+    margin-bottom: calc(var(--baseline) * 2);
+}
+
+.page__content-title {
+    font-family: var(--title);
+    font-size: calc(var(--base-size) * 1.5);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--dark-text);
+    border-top: 1px solid var(--dark-text);
+    border-bottom: 1px solid var(--dark-text);
+    display: inline-block;
+    padding: calc(var(--baseline) / 2) calc(var(--baseline) / 5);
+    margin-bottom: calc(var(--baseline) * 6);
+    margin-top: 10%;
+}
+
+.page__content-credits {
+    margin-top: 8%;
+    font-family: var(--title);
+    font-size: calc(var(--base-size) * 1.5);
+    font-weight: 200;
+    color: var(--dark-text);
+    text-transform: uppercase;
+}
+
+.page__number {
+    position: absolute;
+    bottom: var(--baseline);
+    width: calc(100% - (var(--baseline) * 2));
+    font-family: var(--title);
+    font-size: calc(var(--base-size) * 0.67);
+    text-align: center;
+}
+
+.page__content-image {
+    width: 250px;
+    height: auto;
+    margin-top: 1%;
+    max-width: 100%;
+}
+
+.page__content-image1 {
+    width: 250px;
+    height: auto;
+    margin-top: 1%;
+    max-width: 100%;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.page__content-blastimage {
+    width: 170px;
+    height: auto;
+    margin-top: 10%;
+    max-width: 100%;
+}
+
+.page__content-author {
+    border-top: 1px solid var(--dark-text);
+    border-bottom: 1px solid var(--dark-text);
+    font-size: calc(var(--base-size) * 1);
+}
+
+.page__content-copyright {
+    position: absolute;
+    width: calc(100% - (var(--baseline) * 2));
+    bottom: calc(var(--baseline) * 2);
+    font-family: var(--title);
+    font-size: calc(var(--base-size) * 0.8);
+    text-transform: uppercase;
+}
+
+.book.flipped .book__page--2 {
+    transform: rotateY(-180deg);
+}
+
+.book.flipped .book__page--4 {
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.page-flip-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.book.flipped .page-flip-area {
+    display: none;
+}
+
+.clickable-image {
+    pointer-events: auto;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.clickable-image:hover .page__content-image1 {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .cover {
+        width: 90vw;
+        height: auto;
+        aspect-ratio: 60 / 42.2;
+    }
+
+
+    .page__content-title {
+        font-size: calc(var(--base-size) * 1.2);
+        margin-bottom: calc(var(--baseline) * 3);
+    }
+
+    .page__content-credits {
+        font-size: calc(var(--base-size) * 1.2);
+    }
+
+    .page__content-image,
+    .page__content-image1,
+    .page__content-blastimage {
+        width: 80%;
+        max-width: 200px;
+    }
+
+    .page__number {
+        font-size: calc(var(--base-size) * 0.6);
+    }
+}
+
+@media (max-width: 480px) {
+    .cover {
+        width: 95vw;
+    }
+
+    .page__content-title {
+        font-size: calc(var(--base-size) * 1);
+        margin-bottom: calc(var(--baseline) * 2);
+    }
+
+    .page__content-credits {
+        font-size: calc(var(--base-size) * 1);
+    }
+
+    .page__content-image,
+    .page__content-image1,
+    .page__content-blastimage {
+        width: 70%;
+        max-width: 150px;
+    }
+
+    .page__number {
+        font-size: calc(var(--base-size) * 0.5);
+    }
+}
