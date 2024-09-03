@@ -3,108 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$KONK ON BLAST</title>
-    <link rel="icon" href="/favicon.webp" type="image/webp">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <title>KONK on Blast</title>
+    <link rel="stylesheet" href="bookstyles.css">
 </head>
 <body>
-    <canvas id="c"></canvas>
-    <!-- Connect Wallet Button -->
-    <button id="connect-wallet-button">Connect Wallet</button>
-
-    <!-- Logout Confirmation Modal -->
-    <div id="logout-modal" class="modal">
-        <div class="modal-content">
-            <span id="close-modal" class="close">&times;</span>
-            <p>Are you sure you want to logout?</p>
-            <button id="logout-button">Logout</button>
-        </div>
-    </div>
-
-    <img id="top-image" src="/KiyosonkLogo.webp" alt="Top Image">
-    <img id="center-image" src="/KonkFace.webp" alt="Center Image">
-    <div class="social-icons">
-        <a href="https://tornado.fun/token/0x2b9712190ce9570c1ca860d55b1623bd88bf96ff" target="_blank">
-            <img src="/tornado.webp" alt="Tornado Logo">
-        </a>
-        <a href="https://x.com/KIYOSONK" target="_blank">
-            <img src="/xLogo.webp" alt="X Logo">
-        </a>
-        <a href="https://t.me/kiyosonk" target="_blank">
-            <img src="/TelegramLogo.webp" alt="Telegram Logo">
-        </a>
-        <a href="https://www.dextools.io/app/en/blast/pair-explorer/0x07C24BF49FAC8aE920e4c5f9a1d9Ef8Cf8C83ec6" target="_blank">
-            <img src="/dextoolLogo.webp" alt="Dextools Logo">
-        </a>
-        <a href="https://run.kiyosonk.xyz" target="_blank">
-            <img src="/KONKRUN.gif" alt="Konk Run">
-        </a>
-    </div>
-    <button id="mint-button">MINT $KONK</button>
-    
-    <!-- Buy $KONK Modal -->
-    <div id="buy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-header">
-                <h2>Buy $KONK</h2>
-                <p1 class = "warn pulse">⚠️Make sure you are on Blast Network</p1>
+    <!-- SVG Background Animation -->
+    <svg preserveAspectRatio="xMidYMid slice" viewBox="10 10 80 80">
+        <defs>
+            <style>
+                @keyframes rotate {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                .out-top { animation: rotate 20s linear infinite; transform-origin: 13px 25px; }
+                .in-top { animation: rotate 10s linear infinite; transform-origin: 13px 25px; }
+                .out-bottom { animation: rotate 25s linear infinite; transform-origin: 84px 93px; }
+                .in-bottom { animation: rotate 15s linear infinite; transform-origin: 84px 93px; }
+            </style>
+        </defs>
+        <path fill="#9b5de5" class="out-top" d="M37-5C25.1-14.7,5.7-19.1-9.2-10-28.5,1.8-32.7,31.1-19.8,49c15.5,21.5,52.6,22,67.2,2.3C59.4,35,53.7,8.5,37-5Z"/>
+        <path fill="#f15bb5" class="in-top" d="M20.6,4.1C11.6,1.5-1.9,2.5-8,11.2-16.3,23.1-8.2,45.6,7.4,50S42.1,38.9,41,24.5C40.2,14.1,29.4,6.6,20.6,4.1Z"/>
+        <path fill="#00bbf9" class="out-bottom" d="M105.9,48.6c-12.4-8.2-29.3-4.8-39.4.8-23.4,12.8-37.7,51.9-19.1,74.1s63.9,15.3,76-5.6c7.6-13.3,1.8-31.1-2.3-43.8C117.6,63.3,114.7,54.3,105.9,48.6Z"/>
+        <path fill="#00f5d4" class="in-bottom" d="M102,67.1c-9.6-6.1-22-3.1-29.5,2-15.4,10.7-19.6,37.5-7.6,47.8s35.9,3.9,44.5-12.5C115.5,92.6,113.9,74.6,102,67.1Z"/>
+    </svg>
+    <div class="cover">
+        <div class="book" id="book">
+            <div class="book__page book__page--1">
+                <img src="cover.webp" alt="Cover">
             </div>
-            <div class="modal-body">
-                <div class="buy-section">
-                    <label for="eth-input">Amount of ETH:</label>
-                    <input type="number" id="eth-input" class="eth-input" min="0" step="0.001" placeholder="0.001">
+            
+            <div class="book__page book__page--2">
+                <div class="book__page-front">
+                    <div class="page__content">
+                        <img src="PG1TOPBG.webp" alt="Konk logo" class="page__content-image">
+                        <h2 class="page__content-credits">
+                            FLIP THE PAGE <span>KONKER</span>
+                        </h2>
+                        <img src="blast.svg" alt="Built on Blast" class="page__content-blastimage">
+                        <div class="page__content-copyright"></div>
+                    </div>
                 </div>
-                <div class="eth-buttons">
-                    <button class="eth-button">0.001</button>
-                    <button class="eth-button">0.01</button>
-                    <button class="eth-button">0.1</button>
+                <div class="book__page-back">
+                    <div class="page__content">
+                        <h1 class="page__content-title">GET KONKED</h1>
+                        <a href="./home.html" target="_blank" class="clickable-image">
+                            <img src="konked.webp" alt="Konk logo" class="page__content-image1">
+                        </a>
+                        <div class="page__number">3</div>
+                    </div>
                 </div>
-                <button class="buy-konk-button">BUY $KONK & GET KONKED</button>
             </div>
+            
+            <div class="book__page book__page--4">
+                <div class="page__content">
+                    <h1 class="page__content-title">FEEL THE KONKNESS</h1>
+                    <a href="https://app.kiyosonk.xyz" target="_blank" class="clickable-image">
+                        <img src="konkness.webp" alt="Konk logo" class="page__content-image1">
+                    </a>
+                    <div class="page__number">4</div>
+                </div>
+            </div>
+            
+            <div class="page-flip-area" id="pageFlipArea"></div>
         </div>
     </div>
 
-    <!-- Error Modal -->
-    <div id="error-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Please connect your wallet to proceed.</p>
-        </div>
-    </div>
-
-    <!-- Loader Modal -->
-    <div id="loader-modal" class="modal">
-        <div class="modal-content">
-            <div class="loader"></div>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-<div id="confirmation-modal" class="modal">
-    <div class="modal-content">
-        <span id="confirmation-modal-close" class="close">&times;</span>
-        <h2>Transaction Successful! You Got KONKED!</h2>
-        <p>Tx: <a class="tx-hash-link" target="_blank" rel="noopener noreferrer"></a></p>
-    </div>
-</div>
-
-
-    <!-- Copy Address Button -->
-    <div id="copy-address-container">
-        <button id="copy-address-button">CA: 0x2b9712190ce9570c1ca860d55b1623bd88bf96ff</button>
-    </div>
-
-    <!-- Confetti Canvas -->
-    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; pointer-events: none;"></canvas>
-
-    <audio id="background-music" src="/Kiyosonk.mp3"></audio>
-    <img id="mute-icon" src="/mute.webp" alt="Mute Icon">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <!-- Your custom script -->
-    <script src="scripts.js" defer></script>
+    <script src="bookscript.js"></script>
 </body>
 </html>
