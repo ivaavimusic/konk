@@ -3,6 +3,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageFlipArea = document.getElementById('pageFlipArea');
     const clickableImages = document.querySelectorAll('.clickable-image');
 
+    // Create an audio element
+    const audio = new Audio('rkpk.mp3');
+
+    // Function to play audio on first interaction
+    function playAudioOnce() {
+        audio.play().catch(error => {
+            console.log('Playback prevented until user interaction:', error);
+        });
+        // Remove the event listeners to ensure audio only plays once
+        document.removeEventListener('click', playAudioOnce);
+        document.removeEventListener('touchend', playAudioOnce);
+    }
+
+    // Add event listeners to trigger audio play on first interaction
+    document.addEventListener('click', playAudioOnce);
+    document.addEventListener('touchend', playAudioOnce);
+
     function flipBook() {
         book.classList.add('flipped');
         pageFlipArea.style.display = 'none';  // Hide the flip area after flipping

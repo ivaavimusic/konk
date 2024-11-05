@@ -1,139 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
 body {
     background-color: #FEA304;
     font-family: 'Fredoka', sans-serif;
-    text-align: center;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    user-select: none;
+    -webkit-user-drag: none;
+    overflow-x: hidden;
+}
+
+/* Layout Structure */
+.horizontal-scroll-wrapper {
+    display: flex;
+    width: 200vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: transform 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.main-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
-    user-select: none; /* Prevents text selection */
-    -webkit-user-drag: none;
+    justify-content: flex-start;
+    padding-top: 20px;
+    min-height: auto;  /* Remove fixed height constraint */
+    overflow-y: auto;  /* Enable scrolling */
 }
 
-canvas {
-    position: absolute;
+/* Ensure proper scroll behavior */
+.scroll-section {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Optional: Add smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+canvas#c {
+    position: fixed; /* Change to fixed */
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Ensures it's behind other elements */
+    z-index: -1;
 }
 
-@font-face {
-    font-family: 'Fredoka';
-    src: url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap');
-}
 
-#top-image {
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    max-width: 350px;
-    margin-top: 20px;
+    max-width: 1200px;
+    padding: 0 10px;
 }
 
+/* KONK Title */
+.konk-title {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    font-size: 6rem;
+    color: white;
+    margin: 1px 0;
+    letter-spacing: 4px;
+    text-shadow: 
+        3px 3px 0 #8B4513,
+        6px 6px 0 #654321,
+        9px 9px 0 #3E2723;
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+.konk-title:hover {
+    transform: rotate(0deg) scale(1.05);
+}
+
+/* Center Image */
 #center-image {
     width: 80%;
-    max-width: 230px;
+    max-width: 180px;
     height: auto;
     margin: 20px 0;
     transition: transform 0.3s;
-    padding: 1%;
+    padding: 0%;
 }
 
 #center-image:hover {
     transform: scale(1.1);
 }
 
-h1 {
-    font-family: 'VT323', monospace;
-    font-size: 1.5em;
-    margin: 20px 0;
-    color: white;
-}
-
-#ca-text {
-    margin-top: 20px;
-    color: white;
-}
-
+/* Social Icons */
 .social-icons {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 30px;
 }
 
-.social-icons a {
-    margin: 0 10px;
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
 }
 
-.social-icons img {
-    width: 40px;
-    cursor: pointer;
+.social-link img {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 8px;
 }
 
+.icon-label {
+    color: white;
+    font-size: 0.8em;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+}
+
+/* Main Buy Button */
 #mint-button {
     margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #fff;
+    padding: 15px 30px;
+    font-size: 1.1em; /* Slightly reduced font size */
+    font-weight: bold;
+    background: white;
+    color: black;
     border: none;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    cursor: pointer;
+    width: auto; /* Changed from fixed width */
+    min-width: 320px; /* Minimum width */
+    height: 50px; /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    white-space: nowrap; /* Prevents text wrapping */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.button-logo {
+    width: 20px; /* Slightly smaller logo */
+    height: 20px;
+    object-fit: contain;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+#mint-button:hover {
+    transform: translateY(-2px);
+    background: #FFA500;
+    color: white;
+}
+
+#mint-button:hover .button-logo {
+    transform: rotate(360deg);
+}
+
+#stake-button {
+    margin-top: 10px;
+    padding: 15px 30px;
+    font-size: 1.1em; /* Slightly reduced font size */
+    font-weight: bold;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: auto; /* Changed from fixed width */
+    min-width: 320px; /* Minimum width */
+    height: 50px; /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    white-space: nowrap; /* Prevents text wrapping */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#stake-button:hover {
+    transform: translateY(-2px);
+    background: #a4de05;
+    color: rgb(0, 0, 0);
+}
+
+#stake-button:hover .button-logo {
+    transform: rotate(360deg);
+}
+
+/* How to Buy Link */
+.how-to-buy {
+    background: none;
+    border: none;
+    color: white;
+    font-family: "Fredoka", sans-serif;
     font-size: 1em;
     cursor: pointer;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    opacity: 0.9;
 }
 
-.vibrate {
-    animation: vibrate 0.1s linear infinite;
+.how-to-buy:hover {
+    opacity: 1;
+    transform: translateY(2px);
 }
 
-@keyframes vibrate {
-    0% { transform: translateX(-2px); }
-    50% { transform: translateX(2px); }
-    100% { transform: translateX(-2px); }
+/* Instructions Section */
+.instructions-section {
+    background: #FFA500;
+    min-height: 100vh;
+    padding: 40px 20px;
+    overflow-y: auto; /* Enable vertical scroll */
+    position: relative;
 }
 
-#mute-icon {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    cursor: pointer;
+.instructions-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px; /* Add padding at bottom for better scroll */
 }
 
-#connect-wallet-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #fff;
+.instructions-content h2 {
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    width: 100%;
+}
+
+/* Back Button Styles */
+.back-button {
+    position:relative;
+    top: 20px;
+    left: 20px;
+    background: white;
+    color: #FEA304;
     border: none;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-    padding: 8px 16px;
-    font-size: 0.9em;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    font-size: 1.1em;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-#connect-wallet-button.connected {
-    background-color: #333;
-    color: #fff;
+.back-button svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
 }
 
-#connect-wallet-button.connected::before {
-    content: "Connected: ";
+.back-button:hover {
+    background: #FEA304;
+    color: white;
+    transform: translateX(-5px);
 }
 
+.back-button:hover svg {
+    transform: translateX(-3px);
+}
+
+
+/* Step Cards Grid */
+.step-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* Make sure images don't overflow */
+.instruction-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.step-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+}
+
+.step-card h3 {
+    color: #FEA304;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.step-card p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.instruction-image {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.copy-ca {
+    background: #FEA304;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.copy-ca:hover {
+    background: #ff9500;
+}
+
+.thruster-link {
+    display: inline-block;
+    background: #FEA304;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Fredoka', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.thruster-link:hover {
+    background: #ff9500;
+}
+
+.proceed-button {
+    margin-top: 40px;
+    background: white;
+    color: #FEA304;
+    padding: 15px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.proceed-button:hover {
+    transform: translateX(5px);
+    background: #f5f5f5;
+}
+
+/* Modals */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0,0,0,0.4);
     padding-top: 60px;
 }
@@ -146,6 +426,7 @@ h1 {
     width: 90%;
     max-width: 300px;
     border-radius: 10px;
+    position: relative;
 }
 
 .close {
@@ -153,215 +434,60 @@ h1 {
     float: right;
     font-size: 24px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
+.close:hover {
     color: black;
-    text-decoration: none;
-    cursor: pointer;
 }
 
-#logout-button {
-    background-color: #f44336;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-#logout-button:hover {
-    background-color: #e53935;
-}
-
-#buy-modal {
-    display: none;
+/* Connect Wallet Button */
+#connect-wallet-button {
     position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-#buy-modal .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 300px;
-    border-radius: 10px;
-}
-
-#buy-modal .close {
-    color: #aaa;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#buy-modal .close:hover,
-#buy-modal .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-#buy-modal .modal-header {
-    margin-bottom: 20px;
-}
-
-#buy-modal .modal-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.buy-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.eth-input {
-    margin: 0 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 80px;
-    text-align: center;
-}
-
-.eth-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.eth-button {
-    background-color: #f44336;
-    color: #fff;
+    top: 20px;
+    right: 20px;
+    background: white;
     border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    margin: 0 5px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 0.9em;
     cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.eth-button:hover {
-    background-color: #e53935;
+#connect-wallet-button.connected {
+    background: #333;
+    color: white;
 }
 
-.buy-konk-button {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 25px;
-    padding: 12px 24px;
-    cursor: pointer;
-}
 
-.buy-konk-button:hover {
-    background-color: #333;
-}
-
-#error-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-#error-modal .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 300px;
-    border-radius: 10px;
-}
-
-#error-modal .close {
-    color: #aaa;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-#error-modal .close:hover,
-#error-modal .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
+/* Copy Address */
 #copy-address-container {
     margin-top: 20px;
-    text-align: center;
 }
 
 #copy-address-button {
-    background-color: #f0f0f0;
+    background: #f0f0f0;
     border: 1px solid #ccc;
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#copy-message {
-    display: inline-block;
-    margin-left: 10px;
-    color: green;
-    font-weight: bold;
+#copy-address-button:hover {
+    background: #e0e0e0;
 }
 
-.hidden {
-    display: none;
-}
-
-/* Loader modal styles */
-#loader-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-#loader-modal .modal-content {
-    background-color: transparent;
-    margin: 5% auto;
-    padding: 20px;
-    border: none;
-    width: 100px;
-    max-width: 100px;
-    text-align: center;
-}
-
-/* Loader styles */
+/* Loading Animation */
 .loader {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #db9834;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FEA304;
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
+    width: 40px;
+    height: 40px;
     animation: spin 1s linear infinite;
 }
 
@@ -370,57 +496,560 @@ h1 {
     100% { transform: rotate(360deg); }
 }
 
-@media (max-width: 600px) {
-    #top-image {
-        width: 80%;
-        max-width: 300px;
+/* Media Queries */
+@media (max-width: 768px) {
+    .konk-title {
+        font-size: 3.5rem;
     }
 
     #center-image {
-        width: 70%;
-        max-width: 180px;
+        max-width: 150px;
     }
 
-    h1 {
-        font-size: 1.2em;
-    }
-
-    .social-icons img {
+    .social-link img {
         width: 30px;
+        height: 30px;
     }
 
     #mint-button {
-        padding: 10px 20px;
-        font-size: 0.9em;
+        width: 280px;
+        font-size: 1em;
     }
 
-    #connect-wallet-button {
-        top: 10px;
+    .instructions-content {
+        transform: scale(1);
+        padding-top: 80px;
+    }
+
+    .step-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .step-card {
+        padding: 20px;
+    }
+
+    .back-button {
+        top: 15px;
+        left: 15px;
+    }
+
+    .horizontal-scroll-wrapper[style*="translateX(-100vw)"] .back-button {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .scroll-section {
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .custom-player {
+        bottom: 10px;
         right: 10px;
-        padding: 6px 12px;
-        font-size: 0.8em;
+        padding: 8px 15px;
     }
 
-    .eth-input {
-        width: 70px;
-    }
-
-    .eth-button {
-        padding: 8px 12px;
-        font-size: 0.8em;
-    }
-
-    .buy-konk-button {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
-
-    #copy-address-button {
-        padding: 6px 12px;
-        font-size: 0.8em;
-    }
-
-    #copy-message {
-        font-size: 0.8em;
+    .now-playing {
+        max-width: 100px;
     }
 }
+
+@media (max-width: 480px) {
+    .instructions-content {
+        width: 95%;
+        padding: 60px 10px;
+    }
+
+    .instructions-content h2 {
+        font-size: 2em;
+    }
+
+    .step-card {
+        min-height: auto;
+    }
+}
+
+/* Animations */
+@keyframes buttonPulse {
+    0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2); }
+    100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+#running-konk {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+
+#running-konk img {
+    width: 40px; /* Made larger to be more visible */
+    height: 50px;
+    object-fit: contain;
+}
+
+#running-konk {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+
+#running-konk .konk-sprite {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.meme-container {
+    position: absolute;
+    top: -100px; /* Position above KONK */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+}
+
+.meme-container img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Animation for meme appearance */
+@keyframes memeFloat {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    padding: 40px 20px;
+    width: 100%;
+    background: rgba(254, 163, 4, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-top: 100px;  /* Add space between main content and testimonials */
+    border-top: 2px solid rgba(255, 255, 255, 0.1);  /* Optional divider */
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.testimonial-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+    height: fit-content;  /* Ensure cards only take needed height */
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonial-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.testimonial-username {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.testimonial-content {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #333;
+}
+
+.testimonial-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+/* Custom Media Player */
+.custom-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.custom-player:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.player-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.player-button:hover {
+    transform: scale(1.1);
+}
+
+.player-button svg {
+    width: 20px;
+    height: 20px;
+    fill: #FEA304;
+}
+
+.now-playing {
+    font-size: 0.8em;
+    color: #333;
+    margin: 0 10px;
+    white-space: nowrap;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* .floating-testimonial {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 99;
+    pointer-events: none;
+}
+
+.floating-testimonial .testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.floating-testimonial .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.floating-testimonial .testimonial-name {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.floating-testimonial .testimonial-username {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.floating-testimonial .testimonial-content {
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #333;
+} */
+
+/* Content Views */
+.content-view {
+    min-height: 100vh; /* Change this to exactly 100vh */
+    height: 100vh;     /* Add this line */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 60px 20px;
+    overflow: hidden;  /* Add this to prevent scrolling */
+}
+
+.konkermonials-view {
+    background: rgba(254, 163, 4, 0.05);
+    position: relative;
+    padding-bottom: 20;  /* Add this */
+}
+
+.main-view {
+    position: relative;
+}
+
+.konkermonials-title {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 40px;
+    text-shadow: 
+        3px 3px 0 #8B4513,
+        6px 6px 0 #654321;
+    text-align: center;
+}
+
+/* Tweets Carousel */
+.tweets-carousel {
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+    margin: 0 auto;
+    margin-bottom: 40px; /* Add some bottom margin */
+}
+
+.tweets-track {
+    display: flex;
+    gap: 25px;
+    padding: 10px;
+    will-change: transform;
+    animation: slideLeft 50s linear infinite;
+}
+
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* Only move half way since we duplicated once */
+    }
+}
+
+/* Remove these conflicting styles */
+.tweets-track {
+    transition: none; /* Remove the transition */
+}
+
+.tweet-card {
+    flex: 0 0 300px;
+    min-width: 300px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.tweets-track:hover {
+    animation-play-state: paused;
+}
+
+.tweet-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tweet-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.tweet-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.tweet-user {
+    flex-grow: 1;
+}
+
+.tweet-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.tweet-username {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.tweet-content {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.tweet-image-container {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.tweet-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.tweet-card:hover .tweet-image {
+    transform: scale(1.05);
+}
+
+.tweet-card::after {
+    content: "View Tweet →";
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 0.8em;
+    color: #FEA304;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.tweet-card:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Adjust card size to accommodate images */
+.tweets-carousel {
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.tweets-track {
+    display: flex;
+    gap: 25px;
+    transition: transform 0.5s ease;
+    padding: 10px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .tweet-card {
+        flex: 0 0 280px;
+    }
+
+    .tweet-content {
+        font-size: 0.9em;
+    }
+
+    .tweet-image-container {
+        padding-bottom: 75%; /* 4:3 aspect ratio for mobile */
+    }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .konkermonials-title {
+        font-size: 3rem;
+    }
+
+    .tweet-card {
+        flex: 0 0 280px;
+    }
+}
+

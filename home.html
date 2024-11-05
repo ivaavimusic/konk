@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>$KONK ON BLAST</title>
     <link rel="icon" href="/favicon.webp" type="image/webp">
     <link rel="stylesheet" href="styles.css">
@@ -10,101 +10,240 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <canvas id="c"></canvas>
-    <!-- Connect Wallet Button -->
-    <button id="connect-wallet-button">Connect Wallet</button>
-
-    <!-- Logout Confirmation Modal -->
-    <div id="logout-modal" class="modal">
-        <div class="modal-content">
-            <span id="close-modal" class="close">&times;</span>
-            <p>Are you sure you want to logout?</p>
-            <button id="logout-button">Logout</button>
+    <div id="preloader">
+        <div class="preloader-content">
+            <img src="/KonkFace.webp" alt="KONK" class="preloader-logo">
+            <h1>Welcome to KONK</h1>
+            <button id="enter-site">ENTER KONK WORLD</button>
         </div>
     </div>
-
-    <img id="top-image" src="/KiyosonkLogo.webp" alt="Top Image">
-    <img id="center-image" src="/KonkFace.webp" alt="Center Image">
-    <div class="social-icons">
-        <a href="https://run.kiyosonk.xyz" target="_blank">
-            <img src="/tornado.webp" alt="Tornado Logo">
-        </a>
-        <a href="https://x.com/KIYOSONK" target="_blank">
-            <img src="/xLogo.webp" alt="X Logo">
-        </a>
-        <a href="https://t.me/kiyosonk" target="_blank">
-            <img src="/TelegramLogo.webp" alt="Telegram Logo">
-        </a>
-        <a href="https://www.dextools.io/app/en/blast/pair-explorer/0x07C24BF49FAC8aE920e4c5f9a1d9Ef8Cf8C83ec6" target="_blank">
-            <img src="/dextoolLogo.webp" alt="Dextools Logo">
-        </a>
-        <a href="https://run.kiyosonk.xyz" target="_blank">
-            <img src="/KONKRUN.gif" alt="Konk Run">
-        </a>
+    <div id="running-konk">
+        <img src="/KONKRUN.gif" alt="KONK Running" class="konk-sprite">
+        <div class="meme-container"></div>
     </div>
-    <button id="mint-button">MINT $KONK</button>
+    <div class="horizontal-scroll-wrapper">
+        <!-- First Section (Main Content) -->
+        <section class="scroll-section main-section">
+            <canvas id="c"></canvas>
+            
+            <!-- Main View -->
+            <div class="content-view main-view">
+                <!-- Connect Wallet Button -->
+                <button id="connect-wallet-button">Connect Wallet</button>
+
+                <h1 class="konk-title">KONK</h1>
+                <img id="center-image" src="/KonkFace.webp" alt="Center Image">
+                
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="https://app.kiyosonk.xyz" target="_blank" class="social-link">
+                        <img src="/KonkFace.webp" alt="KONKLAND KONK APP">
+                        <span class="icon-label">App</span>
+                    </a>
+                    <a href="https://x.com/KIYOSONK" target="_blank" class="social-link">
+                        <img src="/xLogo.webp" alt="X Logo">
+                        <span class="icon-label">X</span>
+                    </a>
+                    <a href="https://t.me/kiyosonk" target="_blank" class="social-link">
+                        <img src="/TelegramLogo.webp" alt="Telegram Logo">
+                        <span class="icon-label">Telegram</span>
+                    </a>
+                    <a href="https://dexscreener.com/blast/0xc1125c5b5c6bd2e354fb43035b671cec0d249c25" target="_blank" class="social-link">
+                        <img src="/dexscreenerLogo.png" alt="Dexscreener Logo">
+                        <span class="icon-label">Dexscreener</span>
+                    </a>
+                    <a href="https://run.kiyosonk.xyz" target="_blank" class="social-link">
+                        <img src="/KONKRUN.gif" alt="Konk Run">
+                        <span class="icon-label">KONKRun</span>
+                    </a>
+                </div>
+
+                <!-- Action Buttons -->
+                <button id="mint-button" onclick="window.open('https://app.thruster.finance/?token2=0x2b9712190Ce9570C1CA860D55B1623Bd88BF96fF', '_blank')">
+                    BUY KONK ON THRUSTER
+                    <img src="/thrusterLogo.png" alt="Thruster" class="button-logo">
+                </button>
+                <button id="stake-button" onclick="window.open('https://app.kiyosonk.xyz/konk-hyper-mining', '_blank')">
+                    STAKE YOUR KONK
+                    <img src="/KonkFace.webp" alt="Thruster" class="button-logo">
+                </button>
+                <button class="how-to-buy" onclick="showInstructions()">
+                    HOW TO BUY KONK ON THRUSTER
+                </button>
+
+                <!-- Copy Address Button -->
+                <div id="copy-address-container">
+                    <button id="copy-address-button">CA: 0x2b9712190ce9570c1ca860d55b1623bd88bf96ff</button>
+                </div>
+            </div>
+
+            <!-- KONKERMONIALS View -->
+            <div class="content-view konkermonials-view">
+                <h2 class="konkermonials-title">KONKERMONIALS</h2>
+                <div class="tweets-carousel">
+                    <div class="tweets-track">
+                        <!-- Tweets will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modals -->
+            <div id="logout-modal" class="modal">
+                <div class="modal-content">
+                    <span id="close-modal" class="close">&times;</span>
+                    <p>Are you sure you want to logout?</p>
+                    <button id="logout-button">Logout</button>
+                </div>
+            </div>
+
+            <div id="buy-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h2>Buy $KONK</h2>
+                        <p1 class="warn pulse">⚠️Make sure you are on Blast Network</p1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="buy-section">
+                            <label for="eth-input">Amount of ETH:</label>
+                            <input type="number" id="eth-input" class="eth-input" min="0" step="0.001" placeholder="0.001">
+                        </div>
+                        <div class="eth-buttons">
+                            <button class="eth-button">0.001</button>
+                            <button class="eth-button">0.01</button>
+                            <button class="eth-button">0.1</button>
+                        </div>
+                        <button class="buy-konk-button">BUY $KONK & GET KONKED</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Please connect your wallet to proceed.</p>
+                </div>
+            </div>
+
+            <div id="loader-modal" class="modal">
+                <div class="modal-content">
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+            <div id="confirmation-modal" class="modal">
+                <div class="modal-content">
+                    <span id="confirmation-modal-close" class="close">&times;</span>
+                    <h2>Transaction Successful! You Got KONKED!</h2>
+                    <p>Tx: <a class="tx-hash-link" target="_blank" rel="noopener noreferrer"></a></p>
+                </div>
+            </div>
+
+            <audio id="background-music" src="/Kiyosonk.mp3"></audio>
+        </section>
+
+        <!-- Second Section (Instructions) -->
+        <section class="scroll-section instructions-section">
+            <button class="back-button" onclick="backToMain()">← Back</button>
+            <div class="instructions-content">
+                <h2>How to Buy $KONK</h2>
+                <div class="step-cards">
+                    <div class="step-card">
+                        <h3>Step 1</h3>
+                        <p>Copy Contract Address</p>
+                        <button class="copy-ca">0x2b9712190ce9570c1ca860d55b1623bd88bf96ff</button>
+                    </div>
+                    <div class="step-card">
+                        <h3>Step 2</h3>
+                        <p>Visit Thruster and Paste CA in Token Input</p>
+                        <a href="https://app.thruster.finance" target="_blank" class="thruster-link">Open Thruster</a>
+                    </div>
+                    <div class="step-card">
+                        <h3>Step 3</h3>
+                        <p>Set Your Amount & Approve</p>
+                        <img src="/thrusterBuy.png" alt="Approve" class="instruction-image">
+                    </div>
+                    <div class="step-card">
+                        <h3>Step 4</h3>
+                        <p>Confirm Swap & Get KONKED! 🚀</p>
+                        <img src="/confirm.png" alt="Swap" class="instruction-image">
+                    </div>
+                </div>
+                <a href="https://app.thruster.finance" target="_blank" class="proceed-button">
+                    Proceed to Thruster →
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Custom Media Player -->
+    <div class="custom-player">
+        <button class="player-button prev-button">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="player-button play-button">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="player-button next-button">
+            <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <div class="now-playing">Now Playing: KONK Theme</div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <span>Scroll Down</span>
+        <svg class="scroll-arrow" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </svg>
+    </div>
+<!-- 
+    <div class="content-view konkenomics-view">
+        <h2 class="konkenomics-title">KONKENOMICS</h2>
+        <div class="tokenomics-container">
+            <div class="tokenomics-item supply-item" data-aos="fade-up">
+                <h3>Total Supply</h3>
+                <div class="animated-number">100M</div>
+            </div>
+            
+            <div class="tokenomics-grid">
+                <div class="tokenomics-card" data-aos="fade-right">
+                    <div class="card-icon">🚀</div>
+                    <h4>Fair Launch</h4>
+                    <p>Equal opportunity for everyone to participate</p>
+                </div>
     
-    <!-- Buy $KONK Modal -->
-    <div id="buy-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-header">
-                <h2>Buy $KONK</h2>
-                <p1 class = "warn pulse">⚠️Make sure you are on Blast Network</p1>
-            </div>
-            <div class="modal-body">
-                <div class="buy-section">
-                    <label for="eth-input">Amount of ETH:</label>
-                    <input type="number" id="eth-input" class="eth-input" min="0" step="0.001" placeholder="0.001">
+                <div class="tokenomics-card" data-aos="fade-up">
+                    <div class="card-icon">💎</div>
+                    <h4>KONK Staking</h4>
+                    <p>Earn rewards by staking your KONK tokens</p>
                 </div>
-                <div class="eth-buttons">
-                    <button class="eth-button">0.001</button>
-                    <button class="eth-button">0.01</button>
-                    <button class="eth-button">0.1</button>
+    
+                <div class="tokenomics-card" data-aos="fade-left">
+                    <div class="card-icon">💰</div>
+                    <h4>Triple Rewards</h4>
+                    <p>Native Yield + Gas Claim + Revenue Sharing for stakers</p>
                 </div>
-                <button class="buy-konk-button">BUY $KONK & GET KONKED</button>
+    
+                <div class="tokenomics-card" data-aos="fade-right">
+                    <div class="card-icon">🔥</div>
+                    <h4>Regular Burns</h4>
+                    <p>Continuous $KONK token burns to maintain value</p>
+                </div>
+    
+                <div class="tokenomics-card highlight-card" data-aos="fade-up">
+                    <div class="card-icon">👑</div>
+                    <h4>Community First</h4>
+                    <p>The KONKEST Community Token on Blast</p>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Error Modal -->
-    <div id="error-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Please connect your wallet to proceed.</p>
-        </div>
-    </div>
-
-    <!-- Loader Modal -->
-    <div id="loader-modal" class="modal">
-        <div class="modal-content">
-            <div class="loader"></div>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-<div id="confirmation-modal" class="modal">
-    <div class="modal-content">
-        <span id="confirmation-modal-close" class="close">&times;</span>
-        <h2>Transaction Successful! You Got KONKED!</h2>
-        <p>Tx: <a class="tx-hash-link" target="_blank" rel="noopener noreferrer"></a></p>
-    </div>
-</div>
-
-
-    <!-- Copy Address Button -->
-    <div id="copy-address-container">
-        <button id="copy-address-button">CA: 0x2b9712190ce9570c1ca860d55b1623bd88bf96ff</button>
-    </div>
+    </div> -->
 
     <!-- Confetti Canvas -->
-    <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; pointer-events: none;"></canvas>
-
-    <audio id="background-music" src="/Kiyosonk.mp3"></audio>
-    <img id="mute-icon" src="/mute.webp" alt="Mute Icon">
+    <canvas id="confetti-canvas"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <!-- Your custom script -->
     <script src="scripts.js" defer></script>
 </body>
 </html>

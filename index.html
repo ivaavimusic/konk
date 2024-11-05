@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="bookstyles.css">
 </head>
 <body>
+    <audio id="backgroundAudio" src="rkpk.mp3"></audio>
     <!-- SVG Background Animation -->
     <svg preserveAspectRatio="xMidYMid slice" viewBox="10 10 80 80">
         <defs>
             <style>
+                #backgroundAudio {
+                    display: none;
+                }
+
                 @keyframes rotate {
                     0% { transform: rotate(0deg); }
                     100% { transform: rotate(360deg); }
