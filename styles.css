@@ -1,59 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 
+/* Reset and Base Styles */
 body {
     background-color: #FEA304;
     font-family: 'Fredoka', sans-serif;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    height: 100vh;
+    overflow-x: hidden;
     user-select: none;
     -webkit-user-drag: none;
-    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-/* Layout Structure */
-.horizontal-scroll-wrapper {
-    display: flex;
-    width: 200vw;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    transition: transform 0.5s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.main-section {
+.main-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 20px;
-    min-height: auto;  /* Remove fixed height constraint */
-    overflow-y: auto;  /* Enable scrolling */
+    margin: 0 auto;
 }
 
-/* Ensure proper scroll behavior */
-.scroll-section {
-    flex: 0 0 100vw;
-    width: 100vw;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+
+
+/* Content Sections */
+.content-section {
+    width: 100%;
+    min-height: 1400px;
     position: relative;
-    -webkit-overflow-scrolling: touch;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Optional: Add smooth scroll behavior */
-html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-}
-
+/* Background Canvas */
 canvas#c {
-    position: fixed; /* Change to fixed */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -61,14 +44,117 @@ canvas#c {
     z-index: -1;
 }
 
+/* Main View Section */
+.content-view {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* This centers content horizontally */
+    justify-content: flex-start;
+    padding: 60px 20px;
+}
 
-.content-wrapper {
+.main-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Center everything horizontally */
+    width: 100%;
+    padding-top: 10px;
+    min-height: auto;  /* Change from 100vh */
+}
+
+/* KONKERMONIALS Section */
+.konkermonials-view {
+    padding-top: 0;
+   /* Pull it up */
+    padding-bottom: 10px;  /* Reduced from default */
+}
+
+/* KONKENOMICS Section */
+.konkenomics-view {
+    padding-top: 0;     /* Remove top padding */
+    margin-top: -60px;  /* Pull it up like KONKERMONIALS */
+    margin-bottom: 200px;
+}
+
+/* Scroll Indicator - Hide when at bottom */
+.scroll-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.9em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 10px;
+    gap: 10px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.scroll-indicator.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    animation: bounce 2s infinite;
+}
+
+/* Preloader */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #FEA304;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out;
+}
+
+.preloader-content {
+    text-align: center;
+    color: white;
+}
+
+.preloader-logo {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+#enter-site {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background: white;
+    color: #FEA304;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+#enter-site:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* KONK Title */
@@ -77,7 +163,7 @@ canvas#c {
     font-weight: 600;
     font-size: 6rem;
     color: white;
-    margin: 1px 0;
+    margin: 20px 0;
     letter-spacing: 4px;
     text-shadow: 
         3px 3px 0 #8B4513,
@@ -98,7 +184,6 @@ canvas#c {
     height: auto;
     margin: 20px 0;
     transition: transform 0.3s;
-    padding: 0%;
 }
 
 #center-image:hover {
@@ -141,31 +226,30 @@ canvas#c {
     transform: translateY(-3px);
 }
 
-/* Main Buy Button */
-#mint-button {
+/* Buttons */
+#mint-button, #stake-button {
     margin-top: 20px;
     padding: 15px 30px;
-    font-size: 1.1em; /* Slightly reduced font size */
+    font-size: 1.1em;
     font-weight: bold;
     background: white;
     color: black;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    width: auto; /* Changed from fixed width */
-    min-width: 320px; /* Minimum width */
-    height: 50px; /* Fixed height */
+    min-width: 320px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    white-space: nowrap; /* Prevents text wrapping */
+    white-space: nowrap;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .button-logo {
-    width: 20px; /* Slightly smaller logo */
+    width: 20px;
     height: 20px;
     object-fit: contain;
     border-radius: 50%;
@@ -178,38 +262,13 @@ canvas#c {
     color: white;
 }
 
-#mint-button:hover .button-logo {
-    transform: rotate(360deg);
-}
-
-#stake-button {
-    margin-top: 10px;
-    padding: 15px 30px;
-    font-size: 1.1em; /* Slightly reduced font size */
-    font-weight: bold;
-    background: white;
-    color: black;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    width: auto; /* Changed from fixed width */
-    min-width: 320px; /* Minimum width */
-    height: 50px; /* Fixed height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    white-space: nowrap; /* Prevents text wrapping */
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
 #stake-button:hover {
     transform: translateY(-2px);
     background: #a4de05;
     color: rgb(0, 0, 0);
 }
 
+#mint-button:hover .button-logo,
 #stake-button:hover .button-logo {
     transform: rotate(360deg);
 }
@@ -226,21 +285,464 @@ canvas#c {
     transition: all 0.3s ease;
     text-decoration: underline;
     opacity: 0.9;
+    margin-top: 10px;
 }
 
 .how-to-buy:hover {
     opacity: 1;
-    transform: translateY(2px);
+    transform: translateY(-2px);
+}
+
+/* Copy Address */
+#copy-address-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#copy-address-button {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    max-width: 320px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#copy-address-button:hover {
+    background: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    #copy-address-button {
+        width: 90%;
+        min-height: 44px;  /* Better touch target */
+        font-size: 13px;   /* Slightly smaller for mobile */
+        padding: 10px 15px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+}
+
+/* Custom Media Player */
+.custom-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    bottom: 90px; 
+}
+
+.custom-player:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.player-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.player-button:hover {
+    transform: scale(1.1);
+}
+
+.player-button svg {
+    width: 20px;
+    height: 20px;
+    fill: #FEA304;
+}
+
+.now-playing {
+    font-size: 0.8em;
+    color: #333;
+    margin: 0 10px;
+    white-space: nowrap;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* KONKERMONIALS Section */
+.konkermonials-title {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 40px;
+    text-align: center;
+    text-shadow: 
+        3px 3px 0 #8B4513,
+        6px 6px 0 #654321;
+}
+
+.tweets-carousel {
+    width: 100%;
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+    margin: 0 auto;
+}
+
+.tweets-track {
+    display: flex;
+    gap: 25px;
+    padding: 10px;
+    animation: slideLeft 50s linear infinite;
+}
+
+.tweet-card {
+    flex: 0 0 220px;
+    min-width: 400px;
+    max-height: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.tweet-image-container {
+    position: relative;
+    width: 100%;
+    max-height: 250px;  /* Limit max height */
+    margin-top: auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.tweet-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* Changed to contain */
+    border-radius: 8px;
+}
+
+.tweet-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tweet-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.tweet-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.tweet-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.tweet-username {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.tweet-content {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.tweets-track:hover {
+    animation-play-state: paused;
+}
+/* KONKENOMICS Section */
+/* Update these properties in your KONKENOMICS Section */
+.konkenomics-title {
+    font-size: 4rem;
+    margin-bottom: 40px;
+    color: white;
+    text-shadow: 3px 3px 0 #8B4513;
+    text-align: center;  /* Add this */
+    width: 100%;        /* Add this */
+    margin-top: -40px;  /* Reduce gap from top */
+}
+
+.konkenomics-view {
+    padding-top: 0;     
+    margin-top: -60px;  /* Increase negative margin to pull up more */
+    margin-bottom: 200px;
+    display: flex;      /* Add these flex properties */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Update mobile view if needed */
+@media (max-width: 768px) {
+    .konkenomics-title {
+        font-size: 2.5rem;
+        padding: 0 15px;
+        margin-top: -20px;  /* Adjust for mobile */
+    }
+
+    .konkenomics-view {
+        margin-top: -40px;  /* Adjust for mobile */
+    }
+}
+
+.tokenomics-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;  /* Reset margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tokenomics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.supply-item {
+    text-align: center;
+    margin-bottom: 30px;  /* Reduced from 50px */
+}
+
+.animated-number {
+    font-size: 4em;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    animation: pulse 2s infinite;
+}
+
+.tokenomics-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tokenomics-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.tokenomics-card h4 {
+    color: #333;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.tokenomics-card p {
+    color: #666;
+    line-height: 1.5;
+}
+
+.highlight-card {
+    background: linear-gradient(135deg, #FEA304, #FFD700);
+}
+
+.highlight-card h4,
+.highlight-card p {
+    color: white;
+}
+
+.supply-item h3 {
+    font-size: 2.5em;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Fredoka', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 1200px) {
+    .highlight-card {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .tokenomics-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-500%); }
+}
+
+/* Running KONK */
+#running-konk {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+
+#running-konk .konk-sprite {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.meme-container {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease;
+}
+
+@keyframes fadeFootprint {
+    0% { opacity: 0.3; }
+    80% { opacity: 0.2; }
+    100% { opacity: 0; }
+}
+
+.footprint {
+    position: fixed;
+    width: 12px;
+    height: 18px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: fadeFootprint 30s forwards;
+    z-index: 999;
+}
+
+.konk-text {
+    position: fixed;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: floatText 5s forwards ease-out;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .konk-title {
+        font-size: 3.5rem;
+    }
+
+    .tweets-track {
+        animation: slideLeft 30s linear infinite; /* Faster on mobile */
+    }
+
+    #center-image {
+        max-width: 150px;
+    }
+
+    .social-link img {
+        width: 30px;
+        height: 30px;
+    }
+
+    #mint-button, #stake-button {
+        min-width: 280px;
+        font-size: 1em;
+    }
+
+    .konkermonials-title,
+    .konkenomics-title {
+        font-size: 3rem;
+    }
+
+    .tweet-card {
+        flex: 0 0 280px;
+    }
+
+    .custom-player {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 15px;
+    }
+
+    .now-playing {
+        max-width: 100px;
+    }
+
+    .tokenomics-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .konk-title {
+        font-size: 3rem;
+    }
+
+    .animated-number {
+        font-size: 3em;
+    }
+
+    .social-icons {
+        gap: 20px;
+    }
 }
 
 /* Instructions Section */
-.instructions-section {
-    background: #FFA500;
-    min-height: 100vh;
-    padding: 40px 20px;
-    overflow-y: auto; /* Enable vertical scroll */
-    position: relative;
-}
 
 .instructions-content {
     max-width: 1200px;
@@ -248,7 +750,7 @@ canvas#c {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 40px; /* Add padding at bottom for better scroll */
+    padding-bottom: 40px;
 }
 
 .instructions-content h2 {
@@ -261,9 +763,9 @@ canvas#c {
     width: 100%;
 }
 
-/* Back Button Styles */
+/* Back Button */
 .back-button {
-    position:relative;
+    position: relative;
     top: 20px;
     left: 20px;
     background: white;
@@ -283,37 +785,19 @@ canvas#c {
     gap: 12px;
 }
 
-.back-button svg {
-    width: 24px;
-    height: 24px;
-    transition: transform 0.3s ease;
-}
-
 .back-button:hover {
     background: #FEA304;
     color: white;
     transform: translateX(-5px);
 }
 
-.back-button:hover svg {
-    transform: translateX(-3px);
-}
-
-
-/* Step Cards Grid */
+/* Step Cards */
 .step-cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(300px, 1fr));
     gap: 30px;
     width: 100%;
     margin: 20px 0;
-}
-
-/* Make sure images don't overflow */
-.instruction-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
 }
 
 .step-card {
@@ -405,122 +889,8 @@ canvas#c {
     background: #f5f5f5;
 }
 
-/* Modals */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 300px;
-    border-radius: 10px;
-    position: relative;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: black;
-}
-
-/* Connect Wallet Button */
-#connect-wallet-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#connect-wallet-button.connected {
-    background: #333;
-    color: white;
-}
-
-
-/* Copy Address */
-#copy-address-container {
-    margin-top: 20px;
-}
-
-#copy-address-button {
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#copy-address-button:hover {
-    background: #e0e0e0;
-}
-
-/* Loading Animation */
-.loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #FEA304;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Media Queries */
+/* Responsive */
 @media (max-width: 768px) {
-    .konk-title {
-        font-size: 3.5rem;
-    }
-
-    #center-image {
-        max-width: 150px;
-    }
-
-    .social-link img {
-        width: 30px;
-        height: 30px;
-    }
-
-    #mint-button {
-        width: 280px;
-        font-size: 1em;
-    }
-
-    .instructions-content {
-        transform: scale(1);
-        padding-top: 80px;
-    }
-
     .step-cards {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -530,526 +900,213 @@ canvas#c {
         padding: 20px;
     }
 
-    .back-button {
-        top: 15px;
-        left: 15px;
-    }
-
-    .horizontal-scroll-wrapper[style*="translateX(-100vw)"] .back-button {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .scroll-section {
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .testimonials-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .custom-player {
-        bottom: 10px;
-        right: 10px;
-        padding: 8px 15px;
-    }
-
-    .now-playing {
-        max-width: 100px;
-    }
-}
-
-@media (max-width: 480px) {
-    .instructions-content {
-        width: 95%;
-        padding: 60px 10px;
-    }
-
     .instructions-content h2 {
         font-size: 2em;
     }
-
-    .step-card {
-        min-height: auto;
-    }
 }
-
-/* Animations */
-@keyframes buttonPulse {
-    0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
-    50% { box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2); }
-    100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
-}
-
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
-
-#running-konk {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    pointer-events: none;
-    transition: transform 0.1s linear;
-}
-
-#running-konk img {
-    width: 40px; /* Made larger to be more visible */
-    height: 50px;
-    object-fit: contain;
-}
-
-#running-konk {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    pointer-events: none;
-    transition: transform 0.1s linear;
-}
-
-#running-konk .konk-sprite {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-}
-
-.meme-container {
-    position: absolute;
-    top: -100px; /* Position above KONK */
-    left: 50%;
-    transform: translateX(-50%);
-    transition: opacity 0.3s ease;
-}
-
-.meme-container img {
-    width: 150px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-/* Animation for meme appearance */
-@keyframes memeFloat {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
-}
-
-/* Testimonials Section */
-.testimonials-section {
-    padding: 40px 20px;
-    width: 100%;
-    background: rgba(254, 163, 4, 0.1);
+/* Layout Structure */
+.horizontal-scroll-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    margin-top: 100px;  /* Add space between main content and testimonials */
-    border-top: 2px solid rgba(255, 255, 255, 0.1);  /* Optional divider */
-}
-
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.testimonial-card {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    overflow: hidden;
-    height: fit-content;  /* Ensure cards only take needed height */
-}
-
-.testimonial-card:hover {
-    transform: translateY(-5px);
-}
-
-.testimonial-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.testimonial-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.testimonial-name {
-    font-weight: bold;
-    color: #333;
-}
-
-.testimonial-username {
-    color: #666;
-    font-size: 0.9em;
-}
-
-.testimonial-content {
-    font-size: 0.95em;
-    line-height: 1.5;
-    color: #333;
-}
-
-.testimonial-image {
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 15px;
-}
-
-/* Custom Media Player */
-.custom-player {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.custom-player:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.player-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-}
-
-.player-button:hover {
-    transform: scale(1.1);
-}
-
-.player-button svg {
-    width: 20px;
-    height: 20px;
-    fill: #FEA304;
-}
-
-.now-playing {
-    font-size: 0.8em;
-    color: #333;
-    margin: 0 10px;
-    white-space: nowrap;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* .floating-testimonial {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 99;
-    pointer-events: none;
-}
-
-.floating-testimonial .testimonial-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.floating-testimonial .testimonial-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-.floating-testimonial .testimonial-name {
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #333;
-}
-
-.floating-testimonial .testimonial-username {
-    font-size: 0.8em;
-    color: #666;
-}
-
-.floating-testimonial .testimonial-content {
-    font-size: 0.9em;
-    line-height: 1.4;
-    color: #333;
-} */
-
-/* Content Views */
-.content-view {
-    min-height: 100vh; /* Change this to exactly 100vh */
-    height: 100vh;     /* Add this line */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 60px 20px;
-    overflow: hidden;  /* Add this to prevent scrolling */
-}
-
-.konkermonials-view {
-    background: rgba(254, 163, 4, 0.05);
-    position: relative;
-    padding-bottom: 20;  /* Add this */
-}
-
-.main-view {
-    position: relative;
-}
-
-.konkermonials-title {
-    font-family: "Fredoka", sans-serif;
-    font-weight: 700;
-    font-size: 4rem;
-    color: white;
-    margin-bottom: 40px;
-    text-shadow: 
-        3px 3px 0 #8B4513,
-        6px 6px 0 #654321;
-    text-align: center;
-}
-
-/* Tweets Carousel */
-.tweets-carousel {
-    width: 100%;
-    max-width: 1200px;
-    overflow: hidden;
-    position: relative;
-    padding: 20px 0;
-    margin: 0 auto;
-    margin-bottom: 40px; /* Add some bottom margin */
-}
-
-.tweets-track {
-    display: flex;
-    gap: 25px;
-    padding: 10px;
-    will-change: transform;
-    animation: slideLeft 50s linear infinite;
-}
-
-@keyframes slideLeft {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%); /* Only move half way since we duplicated once */
-    }
-}
-
-/* Remove these conflicting styles */
-.tweets-track {
-    transition: none; /* Remove the transition */
-}
-
-.tweet-card {
-    flex: 0 0 300px;
-    min-width: 300px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.tweets-track:hover {
-    animation-play-state: paused;
-}
-
-.tweet-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.tweet-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.tweet-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.tweet-user {
-    flex-grow: 1;
-}
-
-.tweet-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 1.1em;
-}
-
-.tweet-username {
-    color: #666;
-    font-size: 0.9em;
-}
-
-.tweet-content {
-    font-size: 1em;
-    line-height: 1.5;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.tweet-image-container {
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-}
-
-.tweet-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.tweet-card:hover .tweet-image {
-    transform: scale(1.05);
-}
-
-.tweet-card::after {
-    content: "View Tweet →";
-    position: absolute;
-    bottom: 10px;
-    right: 15px;
-    font-size: 0.8em;
-    color: #FEA304;
-    opacity: 0;
-    transform: translateX(10px);
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 5px 10px;
-    border-radius: 15px;
-}
-
-.tweet-card:hover::after {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Adjust card size to accommodate images */
-.tweets-carousel {
-    width: 100%;
-    max-width: 1200px;
-    overflow: hidden;
-    padding: 20px 0;
-}
-
-.tweets-track {
-    display: flex;
-    gap: 25px;
+    width: 200vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
     transition: transform 0.5s ease;
-    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
-/* Mobile Responsive */
+.scroll-section {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.instructions-section {
+    background: #FFA500;
+}
+
+/* Footer Styles */
+.site-footer {
+    position: absolute; /* Changed from fixed */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    background: rgba(0, 0, 0, 0);
+    z-index: 10;
+    margin-top: auto; /* Add this */
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-content p {
+    font-size: 1.2em;
+    margin: 0;
+    font-weight: 500;
+}
+
+.blast-logo {
+    height: 30px;
+    filter: brightness(0) invert(1);  /* Makes SVG white */
+}
+
 @media (max-width: 768px) {
+    /* Fix main container centering */
+    .horizontal-scroll-wrapper {
+        width: 100%;
+        left: 0;
+        transform: none;
+    }
+
+    .scroll-section {
+        width: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content-view {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 15px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Fix how to buy section */
+    .instructions-section {
+        width: 100vw;
+        padding: 20px 15px;
+    }
+
+    .instructions-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .step-cards {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    /* Fix tweet cards */
     .tweet-card {
-        flex: 0 0 280px;
+        flex: 0 0 220px;
+        min-width: 280px;  /* Changed from 400px */
+        max-height: 350px; /* Reduced from 450px */
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        overflow: hidden; /* Add this */
+    }
+
+    .tweet-header {
+        margin-bottom: 8px;
     }
 
     .tweet-content {
-        font-size: 0.9em;
+        font-size: 0.85em;
+        line-height: 1.4;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        margin-bottom: 8px;
     }
 
     .tweet-image-container {
-        padding-bottom: 75%; /* 4:3 aspect ratio for mobile */
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        margin-right: -12px;
+        height: 140px;
+        overflow: hidden;
+    }
+
+    .tweet-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Fix KONKENOMICS section */
+    .konkenomics-view {
+        width: 100%;
+        padding: 20px 15px;
+        margin: 0;
+    }
+
+    .tokenomics-container {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .tokenomics-grid {
+        width: 100%;
+        padding: 0;
+        gap: 15px;
+    }
+
+    /* Fix main page buttons and elements */
+    #mint-button,
+    #stake-button,
+    .how-to-buy,
+    #copy-address-button {
+        width: 90%;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .social-icons {
+        width: 100%;
+        max-width: 320px;
+        margin: 20px auto;
+        justify-content: center;
     }
 }
 
-/* Scroll Indicator */
-.scroll-indicator {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 0.9em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-}
-
-.scroll-indicator:hover {
-    opacity: 1;
-}
-
-.scroll-arrow {
-    width: 30px;
-    height: 30px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-}
-
-/* Responsive Design */
+/* Horizontal scroll fix for second page */
 @media (max-width: 768px) {
-    .konkermonials-title {
-        font-size: 3rem;
+    .horizontal-scroll-wrapper {
+        transform: none !important;
+        position: relative;
+        height: auto;
+        overflow-y: auto;
     }
 
-    .tweet-card {
-        flex: 0 0 280px;
+    .instructions-section {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background: #FFA500;
+        overflow-y: auto;
+    }
+
+    .instructions-section.active {
+        display: block;
     }
 }
-

@@ -6,21 +6,25 @@
     <title>$KONK ON BLAST</title>
     <link rel="icon" href="/favicon.webp" type="image/webp">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-    <!-- <div id="preloader">
+    <!-- Preloader -->
+    <div id="preloader">
         <div class="preloader-content">
             <img src="/KonkFace.webp" alt="KONK" class="preloader-logo">
-            <h1>Welcome to KONK</h1>
+            <h1>Embrace your inner KONK....</h1>
             <button id="enter-site">ENTER KONK WORLD</button>
         </div>
-    </div> -->
+    </div>
+
+    <!-- Running KONK -->
     <div id="running-konk">
         <img src="/KONKRUN.gif" alt="KONK Running" class="konk-sprite">
         <div class="meme-container"></div>
     </div>
+
+    <!-- Main Container with Horizontal Scroll -->
     <div class="horizontal-scroll-wrapper">
         <!-- First Section (Main Content) -->
         <section class="scroll-section main-section">
@@ -28,9 +32,6 @@
             
             <!-- Main View -->
             <div class="content-view main-view">
-                <!-- Connect Wallet Button -->
-                <button id="connect-wallet-button">Connect Wallet</button>
-
                 <h1 class="konk-title">KONK</h1>
                 <img id="center-image" src="/KonkFace.webp" alt="Center Image">
                 
@@ -67,7 +68,7 @@
                     STAKE YOUR KONK
                     <img src="/KonkFace.webp" alt="Thruster" class="button-logo">
                 </button>
-                <button class="how-to-buy" onclick="showInstructions()">
+                <button class="how-to-buy">
                     HOW TO BUY KONK ON THRUSTER
                 </button>
 
@@ -87,59 +88,68 @@
                 </div>
             </div>
 
-            <!-- Modals -->
-            <div id="logout-modal" class="modal">
-                <div class="modal-content">
-                    <span id="close-modal" class="close">&times;</span>
-                    <p>Are you sure you want to logout?</p>
-                    <button id="logout-button">Logout</button>
-                </div>
-            </div>
-
-            <div id="buy-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <div class="modal-header">
-                        <h2>Buy $KONK</h2>
-                        <p1 class="warn pulse">⚠️Make sure you are on Blast Network</p1>
+            <!-- KONKENOMICS View -->
+            <div class="content-view konkenomics-view">
+                <h2 class="konkenomics-title">UNBEATABLE KONKENOMICS</h2>
+                <div class="tokenomics-container">
+                    <div class="tokenomics-item supply-item">
+                        <h3>Total Supply</h3>
+                        <div class="animated-number">10M</div>
                     </div>
-                    <div class="modal-body">
-                        <div class="buy-section">
-                            <label for="eth-input">Amount of ETH:</label>
-                            <input type="number" id="eth-input" class="eth-input" min="0" step="0.001" placeholder="0.001">
+                    
+                    <div class="tokenomics-grid">
+
+                        <div class="tokenomics-card highlight-card">
+                            <div class="card-icon">👑</div>
+                            <h4>Community First</h4>
+                            <p>The Strongest Community Token on Blast</p>
                         </div>
-                        <div class="eth-buttons">
-                            <button class="eth-button">0.001</button>
-                            <button class="eth-button">0.01</button>
-                            <button class="eth-button">0.1</button>
+                        <div class="tokenomics-card">
+                            <div class="card-icon">🚀</div>
+                            <h4>Fair Launch</h4>
+                            <p>Equal opportunity for everyone to participate</p>
                         </div>
-                        <button class="buy-konk-button">BUY $KONK & GET KONKED</button>
+
+                        <div class="tokenomics-card">
+                            <div class="card-icon">💎</div>
+                            <h4>KONK Staking</h4>
+                            <p>Earn rewards by staking your KONK tokens</p>
+                        </div>
+
+                        <div class="tokenomics-card">
+                            <div class="card-icon">💰</div>
+                            <h4>Triple Rewards</h4>
+                            <p>Native Yield + Gas Claim + Revenue Sharing for stakers</p>
+                        </div>
+
+                        <div class="tokenomics-card">
+                            <div class="card-icon">🔥</div>
+                            <h4>Regular Burns</h4>
+                            <p>Continuous $KONK token burns to reduce supply</p>
+                        </div>
+
+                        <div class="tokenomics-card">
+                            <div class="card-icon">🔒</div>
+                            <h4>Liquidity Locked</h4>
+                            <p>Long-term liquidity security for holders</p>
+                        </div>
+
+                        <div class="tokenomics-card">
+                            <div class="card-icon">💫</div>
+                            <h4>No Buy/Sell Tax</h4>
+                            <p>Zero taxes on transactions for fair trading</p>
+                        </div>
+
+                        <div class="tokenomics-card">
+                            <div class="card-icon">🤝</div>
+                            <h4>Great Partnerships</h4>
+                            <p>Strategic alliances with key Blast ecosystem players</p>
+                        </div>
+
+                        
                     </div>
                 </div>
             </div>
-
-            <div id="error-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Please connect your wallet to proceed.</p>
-                </div>
-            </div>
-
-            <div id="loader-modal" class="modal">
-                <div class="modal-content">
-                    <div class="loader"></div>
-                </div>
-            </div>
-
-            <div id="confirmation-modal" class="modal">
-                <div class="modal-content">
-                    <span id="confirmation-modal-close" class="close">&times;</span>
-                    <h2>Transaction Successful! You Got KONKED!</h2>
-                    <p>Tx: <a class="tx-hash-link" target="_blank" rel="noopener noreferrer"></a></p>
-                </div>
-            </div>
-
-            <audio id="background-music" src="/Kiyosonk.mp3"></audio>
         </section>
 
         <!-- Second Section (Instructions) -->
@@ -173,7 +183,7 @@
                     Proceed to Thruster →
                 </a>
             </div>
-        </section>
+        </section>    
     </div>
 
     <!-- Custom Media Player -->
@@ -197,48 +207,13 @@
             <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
         </svg>
     </div>
-<!-- 
-    <div class="content-view konkenomics-view">
-        <h2 class="konkenomics-title">KONKENOMICS</h2>
-        <div class="tokenomics-container">
-            <div class="tokenomics-item supply-item" data-aos="fade-up">
-                <h3>Total Supply</h3>
-                <div class="animated-number">100M</div>
-            </div>
-            
-            <div class="tokenomics-grid">
-                <div class="tokenomics-card" data-aos="fade-right">
-                    <div class="card-icon">🚀</div>
-                    <h4>Fair Launch</h4>
-                    <p>Equal opportunity for everyone to participate</p>
-                </div>
-    
-                <div class="tokenomics-card" data-aos="fade-up">
-                    <div class="card-icon">💎</div>
-                    <h4>KONK Staking</h4>
-                    <p>Earn rewards by staking your KONK tokens</p>
-                </div>
-    
-                <div class="tokenomics-card" data-aos="fade-left">
-                    <div class="card-icon">💰</div>
-                    <h4>Triple Rewards</h4>
-                    <p>Native Yield + Gas Claim + Revenue Sharing for stakers</p>
-                </div>
-    
-                <div class="tokenomics-card" data-aos="fade-right">
-                    <div class="card-icon">🔥</div>
-                    <h4>Regular Burns</h4>
-                    <p>Continuous $KONK token burns to maintain value</p>
-                </div>
-    
-                <div class="tokenomics-card highlight-card" data-aos="fade-up">
-                    <div class="card-icon">👑</div>
-                    <h4>Community First</h4>
-                    <p>The KONKEST Community Token on Blast</p>
-                </div>
-            </div>
+
+    <!-- <footer class="site-footer">
+        <div class="footer-content">
+            <p>Built with KONKNESS</p>
+            <img src="/blast.svg" alt="Blast" class="blast-logo">
         </div>
-    </div> -->
+    </footer> -->
 
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas"></canvas>
